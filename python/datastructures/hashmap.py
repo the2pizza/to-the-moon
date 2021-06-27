@@ -81,12 +81,14 @@ class Hashmap:
         return self
 
     def __next__(self):
-        if self.counter >= len(self.store)-1:
+        if self.counter >= len(self.store) - 1:
             raise StopIteration
 
         self.counter += 1
 
         while not self.store[self.counter]:
+            if self.counter + 1 >= len(self.store) - 1:
+                raise StopIteration
             self.counter += 1
             
         return self.store[self.counter][0][0]
