@@ -81,13 +81,14 @@ class Hashmap:
         return self
 
     def __next__(self):
+        
         if self.counter >= len(self.store) - 1:
             raise StopIteration
 
         self.counter += 1
 
         while not self.store[self.counter]:
-            if self.counter + 1 >= len(self.store) - 1:
+            if self.counter + 1 > len(self.store) - 1:
                 raise StopIteration
             self.counter += 1
             
@@ -107,7 +108,7 @@ def test_hashmap():
     a.assoc("foo6", "bar3")
 
     for x in a:
-        a.get(x)
+        print(a.get(x))
 
     assert a.get("foo") == "bar"
     assert a.get("foo3") == "bar3"
