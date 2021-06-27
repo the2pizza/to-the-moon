@@ -8,8 +8,6 @@ class Hashmap:
         self.size = 0
         self.capacity = 1
         self.load_factor = 1
-        self.counter = 0
-        self.counter_bucket = 0
 
     def __index(self, key):
         return sum([ord(x) for x in key]) % self.capacity
