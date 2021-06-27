@@ -76,29 +76,21 @@ class Hashmap:
                     return v
 
     def __iter__(self):
-        self.counter = 0
-        self.counter_bucket = 0
+        self.counter = -1
 
         return self
 
     def __next__(self):
-
         if self.counter >= len(self.store)-1:
             raise StopIteration
 
-        if self.counter_bucket < len(self.store[self.counter]):
-            item = self.store[self.counter][self.counter_bucket]
-            self.counter_bucket += 1
-        else:
-            self.counter_bucket = 0
+        self.counter += 1
+
+        while not self.store[self.counter]:
             self.counter += 1
-
-            if len(self.store[self.counter]) == 0:
-                self.counter += 1
-            item = self.store[self.counter][self.counter_bucket]
-            self.counter_bucket += 1
-
-        return item[0]
+            
+        return self.store[self.counter][0][0]
+        
 
 def test_hashmap():
     a = Hashmap()
