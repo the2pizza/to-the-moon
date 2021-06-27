@@ -107,8 +107,9 @@ def test_hashmap():
     a.assoc("foo5", "bar3")
     a.assoc("foo6", "bar3")
 
-    for x in a:
-        print(a.get(x))
+    print('Hashmap:')
+    for key in a:
+        print(f'{key}: {a.get(key)}')
 
     assert a.get("foo") == "bar"
     assert a.get("foo3") == "bar3"
