@@ -102,7 +102,6 @@ class Hashmap:
 
 def test_hashmap():
     a = Hashmap()
-    print(a.store)
 
     a.assoc("foo", "bar")
     assert a.capacity == 1
@@ -112,9 +111,9 @@ def test_hashmap():
     a.assoc("foo4", "bar3")
     a.assoc("foo5", "bar3")
     a.assoc("foo6", "bar3")
-    print(a.store)
 
-
+    for x in a:
+        a.get(x)
 
     assert a.get("foo") == "bar"
     assert a.get("foo3") == "bar3"
@@ -122,15 +121,7 @@ def test_hashmap():
     a.assoc("foo", "barnew")
     assert a.get("foo") == "barnew"
 
-
-    for x in a:
-        print(x)
-
-
-
     a.remove("foo")
-
-
     a.remove("foo3")
     a.remove("foo3")
 
@@ -143,7 +134,7 @@ def test_hashmap():
 
     a.clear()
 
-    print(a.store)
+    assert len(a) == 0
 
 
 if __name__ == "__main__":
