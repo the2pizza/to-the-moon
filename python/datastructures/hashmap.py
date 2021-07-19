@@ -8,8 +8,6 @@ class Hashmap:
         self.size = 0
         self.capacity = 1
         self.load_factor = 1
-        self.counter = 0
-        self.counter_bucket = 0
 
     def __index(self, key):
         return sum([ord(x) for x in key]) % self.capacity
@@ -76,33 +74,27 @@ class Hashmap:
                     return v
 
     def __iter__(self):
-        self.counter = 0
-        self.counter_bucket = 0
+        self.counter = -1
 
         return self
 
     def __next__(self):
-
-        if self.counter >= len(self.store)-1:
+        
+        if self.counter >= len(self.store) - 1:
             raise StopIteration
 
-        if self.counter_bucket < len(self.store[self.counter]):
-            item = self.store[self.counter][self.counter_bucket]
-            self.counter_bucket += 1
-        else:
-            self.counter_bucket = 0
+        self.counter += 1
+
+        while not self.store[self.counter]:
+            if self.counter + 1 > len(self.store) - 1:
+                raise StopIteration
             self.counter += 1
-
-            if len(self.store[self.counter]) == 0:
-                self.counter += 1
-            item = self.store[self.counter][self.counter_bucket]
-            self.counter_bucket += 1
-
-        return item[0]
+            
+        return self.store[self.counter][0][0]
+        
 
 def test_hashmap():
     a = Hashmap()
-    print(a.store)
 
     a.assoc("foo", "bar")
     assert a.capacity == 1
@@ -112,9 +104,10 @@ def test_hashmap():
     a.assoc("foo4", "bar3")
     a.assoc("foo5", "bar3")
     a.assoc("foo6", "bar3")
-    print(a.store)
 
-
+    print('Hashmap:')
+    for key in a:
+        print(f'{key}: {a.get(key)}')
 
     assert a.get("foo") == "bar"
     assert a.get("foo3") == "bar3"
@@ -122,15 +115,7 @@ def test_hashmap():
     a.assoc("foo", "barnew")
     assert a.get("foo") == "barnew"
 
-
-    for x in a:
-        print(x)
-
-
-
     a.remove("foo")
-
-
     a.remove("foo3")
     a.remove("foo3")
 
@@ -143,7 +128,7 @@ def test_hashmap():
 
     a.clear()
 
-    print(a.store)
+    assert len(a) == 0
 
 
 if __name__ == "__main__":
