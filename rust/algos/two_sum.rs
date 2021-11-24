@@ -25,3 +25,30 @@ impl Solution {
         };        
     }
 }
+
+// Second solution 
+
+use std::collections::HashMap; 
+
+impl Solution {
+    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+        
+        let mut index:HashMap<i32, i32> = HashMap::new();
+        let mut i = 0;
+        
+        return loop {
+            let c = target - nums[i];
+            
+            match index.get(&c) {
+                Some(v) => {
+                    break vec![*v, i as i32];
+                }
+                None => {
+                    index.insert(nums[i], i as i32);
+                }
+                
+            };
+            i += 1;   
+        };        
+    }
+}
